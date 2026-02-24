@@ -1,0 +1,48 @@
+body {
+    position: relative;
+    background-color:#F2F3F5;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; 
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background-color:white;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin: auto;
+    border-radius: 1rem;
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.08);
+}
+
+.name {
+    font-size: 35px;
+    margin-top: 10px; 
+    margin-bottom: 10px;  
+    font-weight: bold;         
+}
+
+.status {
+    font-size: 20pt;
+    margin-top: 10px; 
+    margin-bottom: 10px;  
+}
+
+.interest {
+    font-size: 15pt;
+    margin-top: 10px; 
+    margin-bottom: 10px;  
+}
+
+.github {
+    font-size: 20pt;
+    color:blue;
+    margin-top: 10px; 
+    margin-bottom: 10px;  
+    text-decoration: none;
+}
