@@ -10,10 +10,12 @@ let evenSum = 0
 let oddSum = 0
 
 for (let i = 0; i <= N; i++){
-  if (i % 2 == 0)
+  if (i % 2 == 0){
     evenSum = evenSum + i
-  if (i % 2 == 1)
+  }
+  else if (i % 2 == 1){
     oddSum = oddSum + i
+  }
 }
 
 /* ２つの差分を表示
