@@ -1,0 +1,163 @@
+/* body全体のリセット */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  justify-content: center; /* 左右中央 */
+  align-items: center;     /* 上下中央 */
+  min-height: 100vh;
+  width: 100vw;            /* 画面の横幅いっぱいに指定 */
+  background-color: #F2F3F5;;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Box {
+  text-align: center;
+  background-color:white;
+  padding: 70px;
+  width: 350px;
+  margin: 200px 100px;
+  border-radius: 1rem;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.08);
+}
+
+/*.Box {
+  box-sizing: border-box;
+  width: 300px;
+  padding: 40px;
+  margin: 0;
+  text-align: center;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.08);
+}*/
+
+.butt {
+  border-radius: 2rem;
+  color:#F2F3F5;
+  background-color: #007bff;
+  display: inline-block;
+  padding:10px;
+}
+
+.study {
+  text-align: left;
+  color: darkgrey;
+}
+
+.top {
+  display:flex;
+  justify-content: center;
+  margin-top: 0px;
+  width: 100%;
+}
+
+.return {
+  border-radius: 2rem;
+  color:#F2F3F5;
+  background-color: #007bff;
+  font-weight: bold;
+  display: inline-block;
+  padding: 10px 24px;
+  margin-left:30px;
+}
+
+/* 親要素：ここを「外枠」としてデザインする */
+.chatInputWrap {
+  display: flex;
+  align-items: center;
+  background-color: #f0f2f5; 
+  border: 1px solid #d1d5db;
+  border-radius: 999px;     
+  padding: 8px 8px 8px 20px; /* 左側に余白を作って文字を離す */
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  margin-top:300px;
+}
+
+.chatInput {
+  flex: 1;                   /* 残りの幅をすべて使う */
+  border: none;
+  background: transparent;
+  outline: none;             /* クリック時の青い枠線を消す */
+  font-size: 16px;
+  color: #333;
+}
+
+.sendButton {
+  background-color: #007bff; /* ボタンの色 */
+  color: white;
+  padding: 10px 24px;
+  border-radius: 999px;      /* ボタン自体も丸く */
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.2s;
+  white-space: nowrap;       /* 改行を防ぐ */
+  user-select: none;         /* テキスト選択を防ぐ */
+}
+
+.sendButton:hover {
+  opacity: 0.8;
+}
+
+.chatInput::placeholder {
+  color: #999;
+}
+
+/*チャット関係*/
+.newBubbleContent {
+  color:black
+}
+
+.UserMessage {
+  color:white;
+  padding:10px 20px;
+  background-color: #007bff;
+  border-radius:50px 50px 0px 50px;
+  margin:10px;
+  /*width: fit-content; /*メッセージの文字数に合わせる！！*/
+}
+
+/*UserMessageの外枠*/
+.UserBox {
+  display:flex;
+  padding-left: 80px;
+  width: 80%;
+  flex-direction: column;
+  align-self: flex-end;
+  max-width: 60%;
+}
+
+.Response {
+  color:black;
+  background-color: #EDF1FD;
+  border-radius: 50px 50px 50px 0px;
+  margin: 10px;
+  padding:10px 20px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: stretch;
+}
