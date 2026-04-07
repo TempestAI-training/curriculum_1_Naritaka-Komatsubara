@@ -68,7 +68,13 @@ def get_messages(conversation_id : str) :
         cur.execute(
             """
             SELECT role, content, model, created_at
-            FROM messages
+            FROM (
+                SELECT role, content
+                FROM messages
+                WHERE conversation_id = %s
+                ORDER BY created_at DESC
+                LIMIT %s
+            ) sub
             WHERE conversation_id = %s
             ORDER BY created_at ASC
             """,
@@ -108,7 +114,7 @@ def get_conversation_history(conversation_id: str, limit: int = 10):
             SELECT role, content
             FROM messages
             WHERE conversation_id = %s
-            ORDER BY created_at ASC
+            ORDER BY created_at DESC
             LIMIT %s
             """,
             (conversation_id, limit)
