@@ -1,0 +1,29 @@
+services:
+  demo-app:
+    build: .
+    volumes:
+      - .:/src
+    ports:
+      - 8000:8000
+    # .envファイルを読み込み、コンテナ内の環境変数として使用する
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chatdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  postgres_data:
