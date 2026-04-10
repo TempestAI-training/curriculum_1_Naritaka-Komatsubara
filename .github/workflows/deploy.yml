@@ -27,10 +27,11 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies and validate
-        working-directory: final-backend
         run: |
+          cd final-backend/backend
           python -m venv antenv
           source antenv/bin/activate
+          pip install --upgrade pip
           pip install -r requirements.txt
 
       # Upload only the CONTENTS of final-backend (not the folder itself)
