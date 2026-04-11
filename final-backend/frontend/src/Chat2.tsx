@@ -25,7 +25,9 @@ function Chat2 () {
 
         console.log("lateApi開始", ms);
 
-        const res = await fetch("http://localhost:8000/chat", {
+        const API_BASE_URL = process.env.REACT_APP_API__URL;
+
+        const res = await fetch(`${API_BASE_URL}/chat`, {
             method:"POST",
             headers: {
                 "Content-type" : "application/json",
