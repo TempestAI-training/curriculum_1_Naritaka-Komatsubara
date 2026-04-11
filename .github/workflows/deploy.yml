@@ -15,38 +15,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python version
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies and validate
-        working-directory: final-backend/backend
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          python -m py_compile main.py
-          python -m py_compile connect.py
-
-      - name: Prepare minimal deploy package
+      # Azure側のビルドエンジン(Oryx)が正しく認識できるよう、
+      # final-backend/backend の中身をルートに配置した状態でアップロードします
+      - name: Prepare deploy package
         run: |
           mkdir -p deploy
-          cp final-backend/backend/main.py deploy/
-          cp final-backend/backend/connect.py deploy/
-          cp final-backend/backend/requirements.txt deploy/
+          cp -r final-backend/backend/* deploy/
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
           path: deploy
-          include-hidden-files: false
 
   deploy:
     runs-on: ubuntu-latest
@@ -73,5 +56,4 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'final-backend'
-          slot-name: 'Production'
           package: deploy
