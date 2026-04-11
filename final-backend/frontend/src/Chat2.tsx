@@ -18,19 +18,17 @@ function Chat2 () {
     }
         
     const [chatMessages, setChatMessages] = useState<Message[]>([])
-
-    const [reply, setReply] = useState("")
   
     const lateApi = async (ms :string) => {
 
         console.log("lateApi開始", ms);
 
-        const API_BASE_URL = process.env.REACT_APP_API__URL;
+        const API_BASE_URL = process.env.REACT_APP_API_URL;
 
         const res = await fetch(`${API_BASE_URL}/chat`, {
             method:"POST",
             headers: {
-                "Content-type" : "application/json",
+                "Content-Type" : "application/json",
             },
             body: JSON.stringify({
                 message: ms,
