@@ -41,6 +41,10 @@ function Chat2 () {
 
         console.log("fetch完了", res)
 
+        console.log("API_BASE_URL =", process.env.REACT_APP_API_URL);
+
+        if (!process.env.REACT_APP_API_URL) throw new Error("REACT_APP_API_URL is not set");
+
         type ChatResponse = {
             reply:string
         }
