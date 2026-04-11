@@ -27,19 +27,21 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies and validate
+        working-directory: final-backend/backend
         run: |
-          cd final-backend/backend
-          python -m venv antenv
-          source antenv/bin/activate
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
+          python -m py_compile main.py
 
-      # Upload only the CONTENTS of final-backend (not the folder itself)
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: final-backend/backend
+          path: |
+            final-backend/backend
+            !final-backend/backend/antenv/**
+            !final-backend/backend/__pycache__/**
+            !final-backend/backend/.env
           include-hidden-files: false
 
   deploy:
@@ -66,6 +68,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'finalbackend'
+          app-name: 'final-backend'
           slot-name: 'Production'
           package: deploy
