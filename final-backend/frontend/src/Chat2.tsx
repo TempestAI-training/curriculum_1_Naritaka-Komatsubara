@@ -43,14 +43,33 @@ function Chat2 () {
 
         if (!process.env.REACT_APP_API_URL) throw new Error("REACT_APP_API_URL is not set");
 
-        type ChatResponse = {
-            reply:string
-        }
+        type ChatResponse =
+            | { reply: string }
+            | { error: string }
+            | { detail: string };
 
         const json: ChatResponse = await res.json()
 
         console.log("json取得", json)
-        return json.reply
+
+        if (!res.ok) {
+            if ("detail" in json) {
+                throw new Error(json.detail);
+            }
+            if ("error" in json) {
+                throw new Error(json.error);
+            }
+            throw new Error("API error");
+        }
+
+        if (!("reply" in json)) {
+            if ("error" in json) {
+                throw new Error(json.error);
+            }
+            throw new Error("reply missing");
+        }
+
+        return json.reply;
     };
 
     const sendMessages = async ()  => {
@@ -58,7 +77,7 @@ function Chat2 () {
             ...chatMessages,
             {
                 message: text,
-                sender:'user'
+                sender:'user' as const
             }
         ];
 

@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 #CORS
 from fastapi.middleware.cors import CORSMiddleware
 from connect import get_connection
+from fastapi import FastAPI, HTTPException
 
 
 # .envファイルから環境変数をロード
@@ -151,6 +152,8 @@ def chat(request: ChatRequest):
     ユーザーからのメッセージを受け取り、AIの返答を返すエンドポイント
     """
     try:
+        client = get_client()
+
         model_name = "gpt-4o-mini"
 
         # ユーザーからの発言の保存
@@ -164,7 +167,7 @@ def chat(request: ChatRequest):
         history = get_conversation_history(request.conversation_id, 10)
 
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
             messages=
                 [{"role": "system", "content": "あなたは内閣総理大臣の高市早苗です。与えられた質問に対して内閣総理大臣・高市早苗として丁寧に返答することが主な役割です。"}]
                 + history +
@@ -193,6 +196,6 @@ def chat(request: ChatRequest):
         return {"reply": ai_message}
 
     except Exception as e:
-        # エラーが発生した場合の処理
-        return {"error": str(e)}
+        print("ERROR:", str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
