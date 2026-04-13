@@ -8,6 +8,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "final-backend/**"
+      - ".github/workflows/main_final-backend.yml"
   workflow_dispatch:
 
 jobs:
@@ -22,19 +25,27 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
+
+      - name: Show files for debugging
+        run: |
+          pwd
+          ls -la
+          ls -la final-backend
 
       - name: Install dependencies and validate
+        working-directory: final-backend
         run: |
           python -m venv antenv
           source antenv/bin/activate
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: .
+          path: final-backend
           if-no-files-found: error
 
   deploy:
@@ -49,6 +60,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
+          path: .
 
       - name: Login to Azure
         uses: azure/login@v2
