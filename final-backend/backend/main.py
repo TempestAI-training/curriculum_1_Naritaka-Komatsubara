@@ -152,6 +152,11 @@ def chat(request: ChatRequest):
     ユーザーからのメッセージを受け取り、AIの返答を返すエンドポイント
     """
     try:
+        print("===== DEBUG START =====")
+        print("DB_HOST:", os.getenv("DB_HOST"))
+        print("DB_USER:", os.getenv("DB_USER"))
+        print("DB_PASSWORD:", os.getenv("DB_PASSWORD"))
+        print("===== DEBUG END =====")
         client = get_client()
 
         model_name = "gpt-4o-mini"
