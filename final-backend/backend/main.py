@@ -24,7 +24,10 @@ app.add_middleware(
 
 # OpenAIクライアントの初期化
 # APIキーは環境変数から自動的に読み込まれますが、明示的に渡すことも可能です
-client = AzureOpenAI(
+#"client="を"def get_client():return"に変更
+
+def get_client():
+    return AzureOpenAI(
     api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
     api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
     azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
