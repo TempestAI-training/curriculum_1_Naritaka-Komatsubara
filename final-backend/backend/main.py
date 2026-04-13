@@ -13,6 +13,9 @@ from fastapi import FastAPI, HTTPException
 # .envファイルから環境変数をロード
 load_dotenv()
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 app = FastAPI()
 
 app.add_middleware(
@@ -152,15 +155,19 @@ def chat(request: ChatRequest):
     ユーザーからのメッセージを受け取り、AIの返答を返すエンドポイント
     """
     try:
-        print("===== DEBUG START =====")
-        print("DB_HOST:", os.getenv("DB_HOST"))
-        print("DB_USER:", os.getenv("DB_USER"))
-        print("DB_PASSWORD:", os.getenv("DB_PASSWORD"))
-        print("===== DEBUG END =====")
+        logger.error("===== CHAT START =====")
+        logger.error(f"AZURE_OPENAI_ENDPOINT={os.getenv('AZURE_OPENAI_ENDPOINT')}")
+        logger.error(f"AZURE_OPENAI_API_VERSION={os.getenv('AZURE_OPENAI_API_VERSION')}")
+        logger.error(f"AZURE_OPENAI_DEPLOYMENT={os.getenv('AZURE_OPENAI_DEPLOYMENT')}")
+        logger.error(f"AZURE_OPENAI_API_KEY_EXISTS={bool(os.getenv('AZURE_OPENAI_API_KEY'))}")
+        logger.error(f"AZURE_OPENAI_API_KEY_LENGTH={len(os.getenv('AZURE_OPENAI_API_KEY') or '')}")
+        logger.error(f"DB_HOST={os.getenv('DB_HOST')}")
+        logger.error(f"DB_NAME={os.getenv('DB_NAME')}")
+        logger.error(f"DB_USER={os.getenv('DB_USER')}")
         client = get_client()
 
         model_name = os.getenv("AZURE_OPENAI_DEPLOYMENT")
-        
+
         if not model_name:
             raise ValueError("AZURE_OPENAI_DEPLOYMENT is not set")
 
