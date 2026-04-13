@@ -159,7 +159,10 @@ def chat(request: ChatRequest):
         print("===== DEBUG END =====")
         client = get_client()
 
-        model_name = "gpt-4o-mini"
+        model_name = os.getenv("AZURE_OPENAI_DEPLOYMENT")
+        
+        if not model_name:
+            raise ValueError("AZURE_OPENAI_DEPLOYMENT is not set")
 
         # ユーザーからの発言の保存
         save_message(
