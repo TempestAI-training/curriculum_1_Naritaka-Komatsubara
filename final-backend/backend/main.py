@@ -6,8 +6,6 @@ from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from connect import get_connection
 
-load_dotenv()
-
 app = FastAPI()
 
 app.add_middleware(
