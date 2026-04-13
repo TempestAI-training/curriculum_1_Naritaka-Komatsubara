@@ -24,7 +24,6 @@ app.add_middleware(
 
 # OpenAIクライアントの初期化
 # APIキーは環境変数から自動的に読み込まれますが、明示的に渡すことも可能です
-#"client="を"def get_client():return"に変更
 
 def get_client():
     return AzureOpenAI(
@@ -32,6 +31,8 @@ def get_client():
     api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
     azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
 )
+
+client = get_client()
 
 #保存用の関数
 def save_message(conversation_id: str, role: str, content: str, model: str):
